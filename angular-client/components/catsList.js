@@ -5,15 +5,32 @@ app.component('cats', {
 });
 app.controller('catsCtrl', function ($scope, $http,$window){
 var getCats = function() {
-	// TODO: Your code here
+	$http.get('/cats').then(
+      function(response) {
+        console.log(response.data);
+        $scope.cats=response.data
+        // alert(response.data);
+      },
+      function(response) {
+        console.log(response.data);
+        // alert(response.data);
+      }
+    );
 
 };
 getCats();
 
-$scope.addCats=function() {
-// TODO: Your code here
-
-
-}
+$scope.addCats = function() {
+    $http.post('/addCats', $scope.$$watchers).then(
+      function(response) {
+        console.log(response.data);
+        alert(response.data);
+      },
+      function(response) {
+        console.log(response.data);
+        // alert(response.data);
+      }
+    );
+  };
 
 });
