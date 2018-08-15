@@ -9,13 +9,25 @@ app.use(express.static(path.join(__dirname, '../angular-client/')));
 
 app.get('/cats', function (req, res) {
   // TODO - your code here!
+  db.Cat.find({},function(err,data){
+  	res.send(data)
+  })
   
 
 });
 
-app.post('/cats', function (req, res) {
+app.post('/addCats', function (req, res) {
   // TODO - your code here!
-  
+  var obj={
+  	catName:req.body.catName,
+  	ownerEmail:req.body.ownerEmail,
+  	imageUrl:req.body.imageUrl,
+  	adoptionMessage:req.body.adoptionMessage
+  }
+  var cats=new db.Cat(obj)
+  cats.save(obj,function(err,data){
+  	res.send(data)
+  })
 })
 
 
